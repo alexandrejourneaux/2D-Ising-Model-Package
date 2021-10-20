@@ -3,6 +3,7 @@ import numpy as np
 import math
 from matplotlib import colors
 import copy
+from tqdm import tqdm
 
 class IsingSquare:
 
@@ -156,9 +157,9 @@ class IsingSquare:
         specHeatList = []
         suscepList = []
 
-        for temp in tempRange:
+        for temp in tqdm(tempRange):
             self.beta = 1.0 / temp
-            print("Calculating temp:", temp)
+            #print("Calculating temp:", temp)
 
             # allow to reach equilibrium
             for i in np.arange(itersPerTemp + 1):
@@ -486,9 +487,9 @@ class IsingTriangle:
         specHeatList = []
         suscepList = []
 
-        for temp in tempRange:
+        for temp in tqdm(tempRange):
             self.beta = 1.0 / temp
-            print("Calculating temp:", temp)
+            #print("Calculating temp:", temp)
 
             # allow to reach equilibrium
             for i in np.arange(itersPerTemp + 1):
@@ -881,9 +882,9 @@ class IsingHexagon:
         specHeatList = []
         suscepList = []
 
-        for temp in tempRange:
+        for temp in tqdm(tempRange):
             self.beta = 1.0 / temp
-            print("Calculating temp:", temp)
+            #print("Calculating temp:", temp)
 
             # allow to reach equilibrium
             for i in np.arange(itersPerTemp + 1):
