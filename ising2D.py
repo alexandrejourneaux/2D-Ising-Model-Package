@@ -239,6 +239,12 @@ class IsingSquare:
 
             plt.show()
 
+        return {"tempRange": tempRange,
+                "energyList": energyList,
+                "magList": magList,
+                "specHeatList": specHeatList,
+                "suscepList": suscepList}
+
 class IsingTriangle:
 
     # initialise a spin lattice and populate with random spins
