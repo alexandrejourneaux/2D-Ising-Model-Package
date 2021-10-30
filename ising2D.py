@@ -167,34 +167,33 @@ class IsingSquare:
                 self.tryFlip(row, col)
 
             #do a further thousand iterations to get average, and every hundred iterations, store the properties
-            if plotProperties:
+            
+            #store the values used to calculate averages here
+            magListEquilib = []
+            energyListEquilib = []
 
-                #store the values used to calculate averages here
-                magListEquilib = []
-                energyListEquilib = []
+            for i in np.arange(500000):
 
-                for i in np.arange(500000):
+                if i % 5000 == 0:
 
-                    if i % 5000 == 0:
+                    energy = self.totalEnergy()
+                    mag = self.totalMag()
 
-                        energy = self.totalEnergy()
-                        mag = self.totalMag()
+                    energyListEquilib.append(energy)
+                    magListEquilib.append(mag)
 
-                        energyListEquilib.append(energy)
-                        magListEquilib.append(mag)
+                row, col = np.random.randint(0, self.order), np.random.randint(0, self.order)
+                self.tryFlip(row, col)
 
-                    row, col = np.random.randint(0, self.order), np.random.randint(0, self.order)
-                    self.tryFlip(row, col)
+            energyAvg = np.average(energyListEquilib)
+            energySquaredAvg = np.average(np.square(energyListEquilib))
+            magAvg = np.average(magListEquilib)
+            magSquaredAvg = np.average(np.square(magListEquilib))
 
-                energyAvg = np.average(energyListEquilib)
-                energySquaredAvg = np.average(np.square(energyListEquilib))
-                magAvg = np.average(magListEquilib)
-                magSquaredAvg = np.average(np.square(magListEquilib))
-
-                energyList.append(energyAvg)
-                magList.append(magAvg)
-                specHeatList.append(self.specHeat(energyAvg, energySquaredAvg, temp))
-                suscepList.append(self.suscep(magAvg, magSquaredAvg, temp))
+            energyList.append(energyAvg)
+            magList.append(magAvg)
+            specHeatList.append(self.specHeat(energyAvg, energySquaredAvg, temp))
+            suscepList.append(self.suscep(magAvg, magSquaredAvg, temp))
 
             # reset the spins for the next temperature
             self.resetSpins()
