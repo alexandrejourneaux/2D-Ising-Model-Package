@@ -60,12 +60,12 @@ class IsingSquare:
 
         # to avoid counting pairs twice, divide by two
         # divide by maximum possible energy to normalise
-        return math.fabs(energy) / (self.order * self.order * (-4 * self.J - self.h) )
+        return energy# / (self.order * self.order * (-4 * self.J - self.h) )
 
     # calculates the magnitude of the residual magnetic spin of the lattice
     # normalise by dividing by order of lattice squared
     def totalMag(self):
-        return math.fabs(np.sum(np.sum(self.spins)) / (self.order ** 2))
+        return np.sum(np.sum(self.spins)) / (self.order ** 2)
 
     def specHeat(self, energy, energySquared, temp):
         return (energySquared - energy ** 2) * (1 / (self.order * self.order * 2 * temp * temp))
