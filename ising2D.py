@@ -48,7 +48,7 @@ class IsingSquare:
 
         neighbours = self.neighbours(row, col)
         selfSpin = self.spins[row][col]
-        return self.J * selfSpin * np.sum(np.sum(neighbours)) - self.h * selfSpin
+        return -self.J * selfSpin * np.sum(np.sum(neighbours)) - self.h * selfSpin
 
     # calculates the magnitude of the entire energy of the lattice
     def totalEnergy(self):
@@ -71,7 +71,7 @@ class IsingSquare:
         return (energySquared - energy ** 2) * (1 / (self.order * self.order * 2 * temp * temp))
 
     def suscep(self, mag, magSquared, temp):
-        return self.J * (magSquared - mag ** 2) * (1 / (self.order * self.order * 2 * temp))
+        return (magSquared - mag ** 2) / temp
     # attempts to flip a random spin using the metropolis algorithm and the Boltzmann distribution
     def tryFlip(self, row, col):
         # energy change = -2 * E_initial
@@ -79,7 +79,7 @@ class IsingSquare:
 
         energy = self.singleEnergy(row, col)
 
-        if energy <= 0 or np.random.random() <= math.exp(-self.beta * 2 * energy):
+        if energy >= 0 or np.random.random() <= math.exp(self.beta * 2 * energy):
             self.spins[row][col] *= -1
 
     # closes plot window
